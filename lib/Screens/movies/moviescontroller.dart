@@ -13,5 +13,4 @@ class MoviesController extends GetxController{
     currentIndex= index;
     update();
   }
-
 }

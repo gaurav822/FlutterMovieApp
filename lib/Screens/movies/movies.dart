@@ -10,7 +10,7 @@ class Movies extends StatelessWidget {
   Orientation orientation= Orientation.portrait;
   final MoviesController moviesController= MoviesController();
 
-  final List<String> categoryList=["Popular","Trending","Recent"];
+  final List<String> categoryList=["Popular","Trending","Recent","Upcoming","4k"];
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
@@ -18,6 +18,7 @@ class Movies extends StatelessWidget {
         this.orientation=orientation;
         return 
         Scaffold(
+          resizeToAvoidBottomPadding: false,
           backgroundColor: CustomColors.background,
           body:orientation==Orientation.portrait
         ? _portraitView()
@@ -78,8 +79,6 @@ class Movies extends StatelessWidget {
         bottom: 0,
         child: _categoryTabs())
 
-
-
       ]
     );
   }
@@ -97,29 +96,34 @@ class Movies extends StatelessWidget {
         color: Colors.transparent,
         height: Get.height*.08,
         width: Get.width,
-        child: Row(
-                children:[
-                  for(String each in categoryList) 
-                  _singleTab(title: each, 
-                  isSelected: moviesController.currentIndex==categoryList.indexOf(each),
-                  index:categoryList.indexOf(each) )
+        child: SingleChildScrollView(
 
-                  // _singleTab(
-                  //   title: "Popular",
-                  //   isSelected: moviesController.currentIndex==0,
-                  //   index: 0
-                  // ),
-                  // _singleTab(
-                  //   title: "Trending",
-                  //   isSelected: moviesController.currentIndex==1,
-                  //   index: 1
-                  // ),
-                  // _singleTab(
-                  //   title: "Recent",
-                  //   isSelected: moviesController.currentIndex==2,
-                  //   index: 2
-                  // )
-                  ] ,
+                scrollDirection: Axis.horizontal,
+
+                  child: Row(
+                  children:[
+                    for(String each in categoryList) 
+                    _singleTab(title: each, 
+                    isSelected: moviesController.currentIndex==categoryList.indexOf(each),
+                    index:categoryList.indexOf(each) )
+
+                    // _singleTab(
+                    //   title: "Popular",
+                    //   isSelected: moviesController.currentIndex==0,
+                    //   index: 0
+                    // ),
+                    // _singleTab(
+                    //   title: "Trending",
+                    //   isSelected: moviesController.currentIndex==1,
+                    //   index: 1
+                    // ),
+                    // _singleTab(
+                    //   title: "Recent",
+                    //   isSelected: moviesController.currentIndex==2,
+                    //   index: 2
+                    // )
+                    ] ,
+          ),
         ),
       ),
     );
@@ -158,6 +162,8 @@ class Movies extends StatelessWidget {
             height: 10,
           ),
           MovieCard(),
+          
+          
         ],
         
 
