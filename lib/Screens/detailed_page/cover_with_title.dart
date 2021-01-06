@@ -1,34 +1,44 @@
-import 'package:MovieTorrentDownloader/Screens/detailed_page/detailedpage.dart';
-import 'package:MovieTorrentDownloader/utils/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TrendingCard extends StatelessWidget {
-  List<String> _genreList =["Sci-fi","Action","Comedy","Horror"];
+
+class CoverWithTitle extends StatelessWidget {
+  List<String> _genreList = ["Animation", "Action", "Adventure"];
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-          onTap: (){
-            Get.to(DetailedPage());
-          },
-          child: Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: SizedBox(
+    return coverWithTitle();
+  }
+
+  Widget coverWithTitle(){
+  
+  return SizedBox(
            height: Get.height*.25,
-          width: Get.width*.8,
+          width: Get.width,
           child: Stack(children: [
-            _backGround(),
+            _backGround(), 
             _opacity(),
-            _movieInfo()
-            ]))
-      ),
+            _movieInfo(),
+            
+            ]));
+      
+  }
+
+  Widget _backBtn(){
+    return IconButton(
+      onPressed: (){
+        Get.back();
+      },
+      icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
     );
   }
 
   Widget _backGround(){
     return 
     ClipRRect(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)
+              ),
                 child: Image.asset(
             "assets/dog.jpg",
             fit: BoxFit.fitHeight,
@@ -43,10 +53,13 @@ class TrendingCard extends StatelessWidget {
       opacity: 0.3,
       child: Container(
         height: Get.height*.25,
-        width: Get.width*.8,
+        width: Get.width,
         decoration: BoxDecoration(
           color: Colors.black,
-          borderRadius: BorderRadius.circular(15)
+          borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)
+              )
         ),
       ),
     );
@@ -57,28 +70,43 @@ class TrendingCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _backBtn(),
+                Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _title(),
-          SizedBox(
-            height: 10,
-          ),
-          _duration(),
-          SizedBox(
-            height: 30,
-          ),
-            ],
-          ),
-          
-          _genre(),
-        ],
+            
+                _title(),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                _review(),
+                SizedBox(
+                   width: 50,
+                ),
+                _duration(),
+              ],
+            ),
+             
+            
+            _genre(),
+          ],
+        ),
+       ]
       ),
     );
+  }
+
+  Widget _review(){
+    return Text("1456 reviews",style: TextStyle(
+      color: Colors.grey.shade300
+    ),);
   }
 
   Widget _title(){
@@ -97,7 +125,7 @@ class TrendingCard extends StatelessWidget {
   }
 
   Widget _duration(){
-    return Text("1h 44m",style: TextStyle(
+    return Text("1h 44min",style: TextStyle(
       color: Colors.grey.shade300
     ),);
   }
@@ -131,3 +159,4 @@ class TrendingCard extends StatelessWidget {
       );
   }
 }
+

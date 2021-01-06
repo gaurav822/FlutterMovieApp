@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController{
-  int navBarIndex=0;
+  int navBarIndex=1;
 
   navBarItemTap(int index){
     navBarIndex=index;
