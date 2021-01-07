@@ -1,61 +1,58 @@
-import 'package:MovieTorrentDownloader/Screens/home/homecontroller.dart';
+import 'package:MovieTorrentDownloader/screens/home/homecontroller.dart';
 import 'package:MovieTorrentDownloader/utils/custom_color.dart';
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
-  HomeController homeController=HomeController();
+  HomeController homeController = HomeController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-        bottomNavigationBar: _bottomNavBar(),
-
-        body: _body(),
-        
+      bottomNavigationBar: _bottomNavBar(),
+      body: _body(),
     );
   }
 
-  Widget _body(){
-    return 
-    GetBuilder(
-      init: homeController,
-      builder: (_){
-        return homeController.homePage;
-      });
-    
-  }
-
-  Widget _bottomNavBar(){
+  Widget _body() {
     return GetBuilder(
-          init: homeController,
-          builder: (_)=>BottomNavigationBar(
-            onTap: (index){
-              homeController.navBarItemTap(index);
-            },
-            items: _navBarItems(),backgroundColor: CustomColors.primaryblue,
-      selectedItemColor: Colors.white,
-      currentIndex: homeController.navBarIndex,
-      unselectedItemColor: Colors.grey.shade800),
+      init: homeController,
+      builder: (_) {
+        return homeController.homePage;
+      },
     );
   }
 
-  List<BottomNavigationBarItem> _navBarItems(){
+  Widget _bottomNavBar() {
+    return GetBuilder(
+      init: homeController,
+      builder: (_) => BottomNavigationBar(
+        onTap: (index) {
+          homeController.onNavbarItemTap(index);
+        },
+        currentIndex: homeController.navbarIndex,
+        backgroundColor: CustomColors.primaryBlue,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey.shade800,
+        items: _navbarItems(),
+      ),
+    );
+  }
+
+  List<BottomNavigationBarItem> _navbarItems() {
     return [
-      eachNavBarItem(title: "Movies",iconData: FontAwesomeIcons.film),
-      eachNavBarItem(title: "Trending",iconData: FontAwesomeIcons.fire)
+      eachNavbarItem(title: "Movies", iconData: FontAwesomeIcons.film),
+      eachNavbarItem(title: "Trending", iconData: FontAwesomeIcons.fire)
     ];
   }
 
-  BottomNavigationBarItem eachNavBarItem({String title,IconData iconData}){
-
+  BottomNavigationBarItem eachNavbarItem({String title, IconData iconData}) {
     return BottomNavigationBarItem(
-        icon: FaIcon(iconData),label: title,
-      
-      );
+      icon: FaIcon(iconData),
+      label: title
+    );
   }
-
-  
 }

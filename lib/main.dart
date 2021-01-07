@@ -1,9 +1,11 @@
-import 'package:MovieTorrentDownloader/Screens/home/home.dart';
-import 'package:MovieTorrentDownloader/Screens/movies/movies.dart';
+import 'package:MovieTorrentDownloader/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //     statusBarColor: Colors.blue, systemNavigationBarColor: Colors.blue));
   runApp(MyApp());
 }
 
@@ -16,6 +18,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

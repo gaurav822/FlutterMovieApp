@@ -1,5 +1,3 @@
-import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 
-class TrendingController extends GetxController{
-  
-}
+class TrendingController extends GetxController {}

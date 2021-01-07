@@ -1,14 +1,25 @@
-import 'package:MovieTorrentDownloader/Model/listmovies.dart';
+import 'package:MovieTorrentDownloader/model/listmovies.dart';
+import 'package:MovieTorrentDownloader/model/movie_details.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Api{
+class Api {
+  static Future<ListMovies> listMovies() async {
+    String url = "https://yts.mx/api/v2/list_movies.json";
 
-  static Future<ListMovies> listMovies() async{
+    http.Response response = await http.get(url);
 
-    String url="https://yts.mx/api/v2/list_movies.json";
-   http.Response response= await http.get(url);
+    //  ListMovies model =  ListMovies.fromJson(response.body);
+    return ListMovies.fromJson(response.body);
+  }
 
-   return ListMovies.fromJson(response.body);
+  static Future<MovieDetails> movieDetails({@required int id}) async {
+    String url =
+        "https://yts.mx/api/v2/movie_details.json?movie_id=$id&with_cast=true";
 
+    http.Response response = await http.get(url);
+
+    //  ListMovies model =  ListMovies.fromJson(response.body);
+    return MovieDetails.fromJson(response.body);
   }
 }

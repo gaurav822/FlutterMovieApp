@@ -3,32 +3,32 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class ListMovies {
-    ListMovies({
+class MovieDetails {
+    MovieDetails({
         @required this.status,
         @required this.statusMessage,
         @required this.data,
         @required this.meta,
     });
 
-    final Stat status;
+    final String status;
     final String statusMessage;
     final Data data;
     final Meta meta;
 
-    factory ListMovies.fromJson(String str) => ListMovies.fromMap(json.decode(str));
+    factory MovieDetails.fromJson(String str) => MovieDetails.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory ListMovies.fromMap(Map<String, dynamic> json) => ListMovies(
-        status: statValues.map[json["status"]],
+    factory MovieDetails.fromMap(Map<String, dynamic> json) => MovieDetails(
+        status: json["status"],
         statusMessage: json["status_message"],
         data: Data.fromMap(json["data"]),
         meta: Meta.fromMap(json["@meta"]),
     );
 
     Map<String, dynamic> toMap() => {
-        "status": statValues.reverse[status],
+        "status": status,
         "status_message": statusMessage,
         "data": data.toMap(),
         "@meta": meta.toMap(),
@@ -37,33 +37,21 @@ class ListMovies {
 
 class Data {
     Data({
-        @required this.movieCount,
-        @required this.limit,
-        @required this.pageNumber,
-        @required this.movies,
+        @required this.movie,
     });
 
-    final int movieCount;
-    final int limit;
-    final int pageNumber;
-    final List<Movie> movies;
+    final Movie movie;
 
     factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
     factory Data.fromMap(Map<String, dynamic> json) => Data(
-        movieCount: json["movie_count"],
-        limit: json["limit"],
-        pageNumber: json["page_number"],
-        movies: List<Movie>.from(json["movies"].map((x) => Movie.fromMap(x))),
+        movie: Movie.fromMap(json["movie"]),
     );
 
     Map<String, dynamic> toMap() => {
-        "movie_count": movieCount,
-        "limit": limit,
-        "page_number": pageNumber,
-        "movies": List<dynamic>.from(movies.map((x) => x.toMap())),
+        "movie": movie.toMap(),
     };
 }
 
@@ -80,9 +68,10 @@ class Movie {
         @required this.rating,
         @required this.runtime,
         @required this.genres,
-        @required this.summary,
+        @required this.downloadCount,
+        @required this.likeCount,
+        @required this.descriptionIntro,
         @required this.descriptionFull,
-        @required this.synopsis,
         @required this.ytTrailerCode,
         @required this.language,
         @required this.mpaRating,
@@ -91,7 +80,7 @@ class Movie {
         @required this.smallCoverImage,
         @required this.mediumCoverImage,
         @required this.largeCoverImage,
-        @required this.state,
+        @required this.cast,
         @required this.torrents,
         @required this.dateUploaded,
         @required this.dateUploadedUnix,
@@ -108,18 +97,19 @@ class Movie {
     final double rating;
     final int runtime;
     final List<String> genres;
-    final String summary;
+    final int downloadCount;
+    final int likeCount;
+    final String descriptionIntro;
     final String descriptionFull;
-    final String synopsis;
     final String ytTrailerCode;
-    final Language language;
-    final MpaRating mpaRating;
+    final String language;
+    final String mpaRating;
     final String backgroundImage;
     final String backgroundImageOriginal;
     final String smallCoverImage;
     final String mediumCoverImage;
     final String largeCoverImage;
-    final Stat state;
+    final List<Cast> cast;
     final List<Torrent> torrents;
     final DateTime dateUploaded;
     final int dateUploadedUnix;
@@ -140,18 +130,19 @@ class Movie {
         rating: json["rating"].toDouble(),
         runtime: json["runtime"],
         genres: List<String>.from(json["genres"].map((x) => x)),
-        summary: json["summary"],
+        downloadCount: json["download_count"],
+        likeCount: json["like_count"],
+        descriptionIntro: json["description_intro"],
         descriptionFull: json["description_full"],
-        synopsis: json["synopsis"],
         ytTrailerCode: json["yt_trailer_code"],
-        language: languageValues.map[json["language"]],
-        mpaRating: mpaRatingValues.map[json["mpa_rating"]],
+        language: json["language"],
+        mpaRating: json["mpa_rating"],
         backgroundImage: json["background_image"],
         backgroundImageOriginal: json["background_image_original"],
         smallCoverImage: json["small_cover_image"],
         mediumCoverImage: json["medium_cover_image"],
         largeCoverImage: json["large_cover_image"],
-        state: statValues.map[json["state"]],
+        cast: List<Cast>.from(json["cast"].map((x) => Cast.fromMap(x))),
         torrents: List<Torrent>.from(json["torrents"].map((x) => Torrent.fromMap(x))),
         dateUploaded: DateTime.parse(json["date_uploaded"]),
         dateUploadedUnix: json["date_uploaded_unix"],
@@ -169,45 +160,56 @@ class Movie {
         "rating": rating,
         "runtime": runtime,
         "genres": List<dynamic>.from(genres.map((x) => x)),
-        "summary": summary,
+        "download_count": downloadCount,
+        "like_count": likeCount,
+        "description_intro": descriptionIntro,
         "description_full": descriptionFull,
-        "synopsis": synopsis,
         "yt_trailer_code": ytTrailerCode,
-        "language": languageValues.reverse[language],
-        "mpa_rating": mpaRatingValues.reverse[mpaRating],
+        "language": language,
+        "mpa_rating": mpaRating,
         "background_image": backgroundImage,
         "background_image_original": backgroundImageOriginal,
         "small_cover_image": smallCoverImage,
         "medium_cover_image": mediumCoverImage,
         "large_cover_image": largeCoverImage,
-        "state": statValues.reverse[state],
+        "cast": List<dynamic>.from(cast.map((x) => x.toMap())),
         "torrents": List<dynamic>.from(torrents.map((x) => x.toMap())),
         "date_uploaded": dateUploaded.toIso8601String(),
         "date_uploaded_unix": dateUploadedUnix,
     };
 }
 
-enum Language { EN, FR, IT, DE }
+class Cast {
+    Cast({
+        @required this.name,
+        @required this.characterName,
+        @required this.urlSmallImage,
+        @required this.imdbCode,
+    });
 
-final languageValues = EnumValues({
-    "de": Language.DE,
-    "en": Language.EN,
-    "fr": Language.FR,
-    "it": Language.IT
-});
+    final String name;
+    final String characterName;
+    final String urlSmallImage;
+    final String imdbCode;
 
-enum MpaRating { EMPTY, PG_13 }
+    factory Cast.fromJson(String str) => Cast.fromMap(json.decode(str));
 
-final mpaRatingValues = EnumValues({
-    "": MpaRating.EMPTY,
-    "PG-13": MpaRating.PG_13
-});
+    String toJson() => json.encode(toMap());
 
-enum Stat { OK }
+    factory Cast.fromMap(Map<String, dynamic> json) => Cast(
+        name: json["name"],
+        characterName: json["character_name"],
+        urlSmallImage: json["url_small_image"],
+        imdbCode: json["imdb_code"],
+    );
 
-final statValues = EnumValues({
-    "ok": Stat.OK
-});
+    Map<String, dynamic> toMap() => {
+        "name": name,
+        "character_name": characterName,
+        "url_small_image": urlSmallImage,
+        "imdb_code": imdbCode,
+    };
+}
 
 class Torrent {
     Torrent({
@@ -225,8 +227,8 @@ class Torrent {
 
     final String url;
     final String hash;
-    final Quality quality;
-    final Type type;
+    final String quality;
+    final String type;
     final int seeds;
     final int peers;
     final String size;
@@ -241,8 +243,8 @@ class Torrent {
     factory Torrent.fromMap(Map<String, dynamic> json) => Torrent(
         url: json["url"],
         hash: json["hash"],
-        quality: qualityValues.map[json["quality"]],
-        type: typeValues.map[json["type"]],
+        quality: json["quality"],
+        type: json["type"],
         seeds: json["seeds"],
         peers: json["peers"],
         size: json["size"],
@@ -254,8 +256,8 @@ class Torrent {
     Map<String, dynamic> toMap() => {
         "url": url,
         "hash": hash,
-        "quality": qualityValues.reverse[quality],
-        "type": typeValues.reverse[type],
+        "quality": quality,
+        "type": type,
         "seeds": seeds,
         "peers": peers,
         "size": size,
@@ -264,20 +266,6 @@ class Torrent {
         "date_uploaded_unix": dateUploadedUnix,
     };
 }
-
-enum Quality { THE_720_P, THE_1080_P }
-
-final qualityValues = EnumValues({
-    "1080p": Quality.THE_1080_P,
-    "720p": Quality.THE_720_P
-});
-
-enum Type { BLURAY, WEB }
-
-final typeValues = EnumValues({
-    "bluray": Type.BLURAY,
-    "web": Type.WEB
-});
 
 class Meta {
     Meta({
@@ -309,18 +297,4 @@ class Meta {
         "api_version": apiVersion,
         "execution_time": executionTime,
     };
-}
-
-class EnumValues<T> {
-    Map<String, T> map;
-    Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        if (reverseMap == null) {
-            reverseMap = map.map((k, v) => new MapEntry(v, k));
-        }
-        return reverseMap;
-    }
 }
