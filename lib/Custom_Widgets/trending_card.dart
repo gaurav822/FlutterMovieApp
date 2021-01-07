@@ -1,15 +1,18 @@
+import 'package:MovieTorrentDownloader/Model/listmovies.dart';
 import 'package:MovieTorrentDownloader/Screens/detailed_page/detailedpage.dart';
 import 'package:MovieTorrentDownloader/utils/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TrendingCard extends StatelessWidget {
+  Movie movie;
+  TrendingCard(this.movie);
   List<String> _genreList =["Sci-fi","Action","Comedy","Horror"];
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
           onTap: (){
-            Get.to(DetailedPage());
+            Get.to(DetailedPage(movie));
           },
           child: Padding(
         padding: const EdgeInsets.only(left: 10),

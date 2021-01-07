@@ -1,8 +1,11 @@
+import 'package:MovieTorrentDownloader/Model/listmovies.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class CoverWithTitle extends StatelessWidget {
+  Movie movie;
+  CoverWithTitle(this.movie);
   List<String> _genreList = ["Animation", "Action", "Adventure"];
   @override
   Widget build(BuildContext context) {
@@ -39,9 +42,9 @@ class CoverWithTitle extends StatelessWidget {
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)
               ),
-                child: Image.asset(
-            "assets/dog.jpg",
-            fit: BoxFit.fitHeight,
+                child: Image.network(
+            movie.backgroundImage,
+            fit: BoxFit.fitWidth,
             height: Get.height*.25,
           ),
       
@@ -104,7 +107,7 @@ class CoverWithTitle extends StatelessWidget {
   }
 
   Widget _review(){
-    return Text("1456 reviews",style: TextStyle(
+    return Text("${movie.rating} reviews",style: TextStyle(
       color: Colors.grey.shade300
     ),);
   }
@@ -112,11 +115,11 @@ class CoverWithTitle extends StatelessWidget {
   Widget _title(){
     return RichText(
       text: TextSpan(
-        text: "How to Train your Dragon: The Hidden World",
+        text: movie.titleEnglish,
         style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
         children: [
           TextSpan(
-            text: "(2019)",
+            text: "(${movie.year})",
             style: TextStyle(color: Colors.grey.shade300,fontSize: 14)
           )
         ]
@@ -125,7 +128,7 @@ class CoverWithTitle extends StatelessWidget {
   }
 
   Widget _duration(){
-    return Text("1h 44min",style: TextStyle(
+    return Text("${movie.runtime} min",style: TextStyle(
       color: Colors.grey.shade300
     ),);
   }

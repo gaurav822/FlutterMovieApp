@@ -186,12 +186,7 @@ iconData: FontAwesomeIcons.heart
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            TrendingCard(),
-            TrendingCard(),
-            TrendingCard(),
-            TrendingCard(),
-            TrendingCard(),
-            TrendingCard(),
+            
             
           ],
         ),

@@ -1,28 +1,37 @@
+import 'package:MovieTorrentDownloader/Model/listmovies.dart';
+import 'package:MovieTorrentDownloader/Screens/detailed_page/detailedpage.dart';
 import 'package:MovieTorrentDownloader/utils/custom_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class MovieCard extends StatelessWidget {
+  final Movie movie;
+  MovieCard(this.movie);
   List<String> _genreList =["Sci-fi","Action","Comedy","Horror"];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // margin: EdgeInsets.symmetric(horizontal: Get.width*.05),
-      height: Get.height*.30,
-      width: Get.width*.9,
-      // color: Colors.blue,
-      child: Stack(
-        children: [
-          Positioned(
-            left: Get.width*.05,
-            bottom: 0,
-            child: _bottomCard()
-            ),
-          Positioned(
-            left: Get.width*.05,
-            child: _movieCover())
-        ],
+    return GestureDetector(
+          onTap: (){
+            Get.to(DetailedPage(movie));
+          },
+          child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: Get.width*.05),
+        height: Get.height*.30,
+        width: Get.width*.9,
+        // color: Colors.blue,
+        child: Stack(
+          children: [
+            Positioned(
+              left: Get.width*.05,
+              bottom: 0,
+              child: _bottomCard()
+              ),
+            Positioned(
+              left: Get.width*.05,
+              child: _movieCover())
+          ],
+        ),
       ),
     );
   }
@@ -61,8 +70,8 @@ class MovieCard extends StatelessWidget {
   Widget _movieCover(){
     return  ClipRRect(
       borderRadius: BorderRadius.circular(15),
-          child: Image.asset(
-        "assets/dog.jpg",
+          child: Image.network(
+        movie.mediumCoverImage,
         height: Get.height*.25,
         width: Get.width*.3,
         fit: BoxFit.fitHeight,
@@ -86,7 +95,9 @@ class MovieCard extends StatelessWidget {
   }
 
   Widget _title(){
-    return Text("Avengers: End Game", style: TextStyle(color: CustomColors.primaryblue,fontSize: 20,fontWeight: FontWeight.bold,));
+    return Wrap(
+      
+      children: [Text(movie.titleEnglish, style: TextStyle(color: CustomColors.primaryblue,fontSize: 20,fontWeight: FontWeight.bold,))]);
   }
 
   Widget __ratingDuration(){
@@ -96,11 +107,11 @@ class MovieCard extends StatelessWidget {
           Icons.star,
           color: CustomColors.orange,
         ),
-        Text("8.7/10 Imdb"),
+        Text("${movie.rating}/10 Imdb"),
         SizedBox(
           width: 10,
         ),
-        Text("3h 2min")
+        Text(movie.runtime.toString()+" min")
       ],
     );
   }
@@ -115,7 +126,7 @@ class MovieCard extends StatelessWidget {
               child: Row(
         
           children: [
-            for(String genre in _genreList) _eachGenre(genre)
+            for(String genre in movie.genres) _eachGenre(genre)
           ],
         ),
       )

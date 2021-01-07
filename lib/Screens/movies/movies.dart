@@ -10,7 +10,14 @@ class Movies extends StatelessWidget {
   Orientation orientation= Orientation.portrait;
   final MoviesController moviesController= MoviesController();
 
-  final List<String> categoryList=["Popular","Trending","Recent","Upcoming","4k"];
+  final List<String> categoryList=["Action",
+"Adventure",
+"Animation",
+"Biography",
+"Comedy",
+"Crime"];
+
+
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
@@ -151,23 +158,20 @@ class Movies extends StatelessWidget {
   }
 
   Widget _body(){
-    return SizedBox(
+
+    return GetBuilder(
+      init: moviesController,
+      builder: (_)=>
+   SizedBox(
       height: Get.height*.8- MediaQuery.of(Get.context).padding.top,
       width: Get.width,
       child: ListView(
 
-        children: [
-          MovieCard(),
-          SizedBox(
-            height: 10,
-          ),
-          MovieCard(),
-          
-          
-        ],
+        children: moviesController.movieList
         
 
       ),
+    )
     );
   }
 
