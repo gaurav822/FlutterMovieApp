@@ -40,8 +40,10 @@ class MovieCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(),
-          _movieDetails(),
+          SizedBox(
+          
+          ),
+          Flexible(child: _movieDetails()),
         ],
       ),
     );
@@ -49,21 +51,27 @@ class MovieCard extends StatelessWidget {
 
   Widget _movieDetails() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_title(), _ratingDuration(), _genres()],
+      padding: const EdgeInsets.all(0),
+      child: Container(
+        width: Get.width*.55,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          
+          children: [_title(), _ratingDuration(), _genres()],
+        ),
       ),
     );
   }
 
   Widget _title() {
-    return Text(movie.titleEnglish,
-        style: TextStyle(
-            color: CustomColors.primaryBlue,
-            fontSize: 20,
-            fontWeight: FontWeight.bold));
+    return Flexible(
+          child: Text(movie.titleEnglish,
+          style: TextStyle(
+              color: CustomColors.primaryBlue,
+              fontSize: 20,
+              fontWeight: FontWeight.bold)),
+    );
   }
 
   Widget _ratingDuration() {
