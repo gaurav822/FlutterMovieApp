@@ -11,14 +11,7 @@ class Movies extends StatelessWidget {
   Orientation orientation = Orientation.portrait;
   final MoviesController moviesController = MoviesController();
 
-  final List<String> _categoryList = [
-    "Action",
-    "Adventure",
-    "Animation",
-    "Biography",
-    "Comedy",
-    "Crime"
-  ];
+  
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
@@ -32,14 +25,22 @@ class Movies extends StatelessWidget {
   }
 
   Widget _portraitView() {
-    return Column(
-      children: [
-        SizedBox(
-          height: MediaQuery.of(Get.context).padding.top,
+    return SizedBox(
+        height: Get.height,
+        width: Get.width,
+        child: Stack(
+            children: [Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(Get.context).padding.top,
+            ),
+            _appbar(),
+            _body()
+          ],
         ),
-        _appbar(),
-        _body()
-      ],
+        Positioned(top: 10+MediaQuery.of(Get.context).padding.top, right: Get.width*.05, child: _searchBar()),
+        ],
+      ),
     );
   }
 
@@ -72,17 +73,19 @@ class Movies extends StatelessWidget {
                 shape: BoxShape.circle),
           ),
         ),
-        Positioned(top: 10, right: 0, child: _searchBar()),
+        
         Positioned(bottom: 0, child: _categoryTabs())
       ],
     );
   }
 
   Widget _searchBar() {
-    return SearchBar();
+    return SearchBar(
+      searchBarWidth: Get.width *.9,
+    );
   }
 
-  Widget _categoryTabs() {
+  Widget _categoryTabs() { 
     return GetBuilder(
       init: moviesController,
       builder: (_) => Container(
@@ -93,12 +96,12 @@ class Movies extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                for (String category in _categoryList)
+                for (String category in moviesController.categoryList)
                   _singleTab(
                       title: category,
                       isSelected: moviesController.currentIndex ==
-                          _categoryList.indexOf(category),
-                      index: _categoryList.indexOf(category))
+                          moviesController.categoryList.indexOf(category),
+                      index: moviesController.categoryList.indexOf(category))
 
                 // _singleTab(
                 //     title: "Popular",

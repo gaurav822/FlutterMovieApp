@@ -13,6 +13,15 @@ class MoviesController extends GetxController {
     _getMovieList();
   }
 
+  final List<String> categoryList = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Biography",
+    "Comedy",
+    "Crime"
+  ];
+
   List<Widget> _movieList = [Center(child: CircularProgressIndicator())];
   List<Widget> get movieList => _movieList;
 
@@ -20,11 +29,16 @@ class MoviesController extends GetxController {
 
   onTabClick(int index) {
     currentIndex = index;
+    _movieList = [Center(child: CircularProgressIndicator())];
     update();
+    _getMovieList();
+    
   }
 
   _getMovieList() async {
-    ListMovies listMovies = await Api.listMovies();
+    ListMovies listMovies = await Api.listMovies(genre: categoryList[currentIndex]);
+
+
 
     List<Widget> _tempList = List();
     for (var eachMovie in listMovies.data.movies) {
