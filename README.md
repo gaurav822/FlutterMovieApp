@@ -23,11 +23,11 @@ samples, guidance on mobile development, and a full API reference.
 
 ## SCREENSHOTS
 
-<img src="https://github.com/gaurav822/FlutterMovieApp/tree/master/screenshots/1.jpeg" width="300" height="500">
-<img src="https://github.com/gaurav822/FlutterMovieApp/tree/master/screenshots/2.jpeg" width="300" height="500">
-<img src="https://github.com/gaurav822/FlutterMovieApp/tree/master/screenshots/3.jpeg" width="300" height="500">
-<img src="https://github.com/gaurav822/FlutterMovieApp/tree/master/screenshots/4.jpeg" width="300" height="500">
-<img src="https://github.com/gaurav822/FlutterMovieApp/tree/master/screenshots/5.jpeg" width="300" height="500">
-<img src="https://github.com/gaurav822/FlutterMovieApp/tree/master/screenshots/6.jpeg" width="300" height="500">
+<img src="https://github.com/gaurav822/FlutterMovieApp/blob/master/screenshots/1.jpeg" width="300" height="500">
+<img src="https://github.com/gaurav822/FlutterMovieApp/blob/master/screenshots/2.jpeg" width="300" height="500">
+<img src="https://github.com/gaurav822/FlutterMovieApp/blob/master/screenshots/3.jpeg" width="300" height="500">
+<img src="https://github.com/gaurav822/FlutterMovieApp/blob/master/screenshots/4.jpeg" width="300" height="500">
+<img src="https://github.com/gaurav822/FlutterMovieApp/blob/master/screenshots/5.jpeg" width="300" height="500">
+<img src="https://github.com/gaurav822/FlutterMovieApp/blob/master/screenshots/6.jpeg" width="300" height="500">
 
 
