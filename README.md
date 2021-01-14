@@ -1,6 +1,6 @@
 # MovieTorrentDownloader
 
-A new Flutter project.
+A flutter movie application to search movies and know full details. User can even download the torrent file from this application.
 
 ## Getting Started
 
